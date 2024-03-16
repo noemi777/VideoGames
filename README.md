@@ -10,7 +10,6 @@ Este ejercicio tecnico se compone de 5 endpoints: <br>
 - Clonar el repositorio: <br>
 git clone <br>
 - Crear el ambiente virtual para python<br>
-<br>
 - Instalar los requirements <br>
 pip install -r requirements.txt <br>
 <br>
