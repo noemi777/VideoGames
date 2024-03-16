@@ -20,6 +20,8 @@ DEBUG = True  <br>
 ALLOWED_HOSTS = *  <br>
 DATABASE_URL= 'postgres://gamestest:43W0N1KUZp0pZuIP1LlzBH6A6eOlTDE5@dpg-cnqfg6la73kc739uogv0-a.oregon-postgres.render.com/demo_games' <br>
 <br>
+La conexión actual de la base de datos es remota, sin embargo, puede hacerse una configuración en el archivo settings.py para cambiar las propiedades de la DATABASES a una base de datos local<br>
+<br>
 Los datos anteriores pueden ser sustituidos de acuerdo a las necesidades. La base de datos es temporal, despues de un mes no estará disponible. <br>
 <br>
 
