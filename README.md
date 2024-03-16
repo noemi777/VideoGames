@@ -24,5 +24,11 @@ La conexión actual de la base de datos es remota, sin embargo, puede hacerse un
 <br>
 Los datos anteriores pueden ser sustituidos de acuerdo a las necesidades. La base de datos es temporal, despues de un mes no estará disponible. <br>
 <br>
-
+- JSON<br>
+<br>
+{
+"title":"MarioBross",
+"company":"Nintendoo",
+"release_date":"2021-03-01"
+}
   
