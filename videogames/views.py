@@ -1,0 +1,56 @@
+from django.http import Http404
+from django.shortcuts import render
+from rest_framework import status
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from videogames.models import VideoGames
+from videogames.serializers import VideoGamesSerializer
+
+# Create your views here.
+
+class CreateReadAllGame(APIView):  
+    permission_classes = (AllowAny, )
+
+    def get(self, request):
+        try:
+            game_obj = VideoGames.objects.all()
+            serializer = VideoGamesSerializer(game_obj, many=True)
+            return Response (serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
+        
+    def post(self, request):
+        serializer = VideoGamesSerializer(data=request.data)
+        if  serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': 'Created'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class DetailGamesId(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, id):
+        try:
+            game_obj = VideoGames.objects.get(pk=id)
+            serializer = VideoGamesSerializer(game_obj)
+            return Response(serializer.data)
+        except:
+            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
+        
+    def put(self, request, id):
+        game_obj = VideoGames.objects.get(pk=id)
+        serializer = VideoGamesSerializer(game_obj, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response (serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, reques, id):
+        game_obj = VideoGames.objects.get(pk=id)
+        game_obj.status = False
+        game_obj.delete()
+        return Response({'message': 'Deleted'},status=status.HTTP_204_NO_CONTENT)
+
+
+
