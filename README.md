@@ -6,8 +6,8 @@ Este ejercicio tecnico se compone de 5 endpoints: <br>
 - Editar los datos de un elemento de la lista de videojuegos. <br>
 - Eliminar un elemento de la lista de videojuegos. <br> <br>
 
-#Instalación
--Clonar el repositorio: <br>
+#Instalación#
+- Clonar el repositorio: <br>
 git clone <br>
 - Crear el ambiente virtual para python<br>
 <br>
