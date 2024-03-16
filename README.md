@@ -1,4 +1,4 @@
-##Endpoint VideoJuegos
+#Endpoint VideoJuegos
 Este ejercicio tecnico se compone de 5 endpoints: <br>
 - Crear un objeto compuesto por un nombre del videojuego, la compañia de origen y la fecha de publicación. <br>
 - Mostrar una lista de todos los videojuegos registrados. <br>
@@ -6,7 +6,7 @@ Este ejercicio tecnico se compone de 5 endpoints: <br>
 - Editar los datos de un elemento de la lista de videojuegos. <br>
 - Eliminar un elemento de la lista de videojuegos. <br> <br>
 
-##Instalación
+#Instalación
 -Clonar el repositorio: <br>
 git clone <br>
 - Crear el ambiente virtual para python<br>
