@@ -1,4 +1,4 @@
-#Endpoint VideoJuegos
+*Endpoint VideoJuegos
 Este ejercicio tecnico se compone de 5 endpoints: <br>
 - Crear un objeto compuesto por un nombre del videojuego, la compañia de origen y la fecha de publicación. <br>
 - Mostrar una lista de todos los videojuegos registrados. <br>
