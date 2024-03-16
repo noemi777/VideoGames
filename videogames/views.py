@@ -9,7 +9,17 @@ from videogames.serializers import VideoGamesSerializer
 
 # Create your views here.
 
-class CreateReadAllGame(APIView):  
+class CreateGame(APIView):
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        serializer = VideoGamesSerializer(data=request.data)
+        if  serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': 'Created'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class ReadListGames(APIView):
     permission_classes = (AllowAny, )
 
     def get(self, request):
@@ -19,15 +29,8 @@ class CreateReadAllGame(APIView):
             return Response (serializer.data, status=status.HTTP_200_OK)
         except:
             return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
-        
-    def post(self, request):
-        serializer = VideoGamesSerializer(data=request.data)
-        if  serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response({'message': 'Created'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class DetailGamesId(APIView):
+class ReadGamesId(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, id):
@@ -37,7 +40,18 @@ class DetailGamesId(APIView):
             return Response(serializer.data)
         except:
             return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
-        
+    
+class UpdateGame(APIView):
+    permission_classes = (AllowAny, )
+
+    def get(self, request, id):
+        try:
+            game_obj = VideoGames.objects.get(pk=id)
+            serializer = VideoGamesSerializer(game_obj)
+            return Response(serializer.data)
+        except:
+            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
+
     def put(self, request, id):
         game_obj = VideoGames.objects.get(pk=id)
         serializer = VideoGamesSerializer(game_obj, data=request.data)
@@ -46,11 +60,24 @@ class DetailGamesId(APIView):
             return Response (serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+class DeleteGame(APIView):
+    permission_classes = (AllowAny, )
+
+    def get(self, request, id):
+        try:
+            game_obj = VideoGames.objects.get(pk=id)
+            serializer = VideoGamesSerializer(game_obj)
+            return Response(serializer.data)
+        except:
+            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
+    
     def delete(self, reques, id):
         game_obj = VideoGames.objects.get(pk=id)
         game_obj.status = False
         game_obj.delete()
         return Response({'message': 'Deleted'},status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 
