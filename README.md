@@ -8,7 +8,7 @@ Este ejercicio tecnico se compone de 5 endpoints: <br>
 
 ## Instalación
 - Clonar el repositorio: <br>
-git clone <br>
+git clone https://github.com/noemi777/VideoGames.git <br>
 - Crear el ambiente virtual para python<br>
 - Instalar los requirements <br>
 pip install -r requirements.txt <br>
