@@ -8,7 +8,7 @@ Este ejercicio tecnico se compone de 5 endpoints: <br>
 
 ## Instalación
 - Clonar el repositorio: <br>
-git clone <br>
+git clone https://github.com/noemi777/VideoGames.git <br>
 - Crear el ambiente virtual para python<br>
 - Instalar los requirements <br>
 pip install -r requirements.txt <br>
@@ -24,5 +24,11 @@ La conexión actual de la base de datos es remota, sin embargo, puede hacerse un
 <br>
 Los datos anteriores pueden ser sustituidos de acuerdo a las necesidades. La base de datos es temporal, despues de un mes no estará disponible. <br>
 <br>
-
+- JSON en Postman u otros<br>
+<br>
+{
+"title":"MarioBross",<br>
+"company":"Nintendoo",<br>
+"release_date":"2021-03-01"<br>
+}
   
