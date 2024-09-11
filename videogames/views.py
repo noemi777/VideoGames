@@ -41,3 +41,14 @@ class ReadGamesId(APIView):
         except:
             return Response({'message':'No encontrado'},status=status.HTTP_400_BAD_REQUEST)
     
+class UpdateGame(APIView):
+    permission_classes = (AllowAny, )
+
+    def get(self, request, id):
+        try:
+            game_obj = VideoGames.objects.get(pk=id)
+            serializer = VideoGamesSerializer(game_obj)
+            return Response(serializer.data)
+        except:
+            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
+
