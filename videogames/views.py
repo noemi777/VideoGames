@@ -52,3 +52,25 @@ class UpdateGame(APIView):
         except:
             return Response({'message':'Not Found Element'},status=status.HTTP_400_BAD_REQUEST)
 
+class DeleteGame(APIView):
+    permission_classes = (AllowAny, )
+
+    def delete(self, request, id):
+        try:
+            game_obj = VideoGames.objects.get(pk=id)
+            game_obj.delete()
+            return Response({'message':'Deleted'},status=status.HTTP_200_OK)
+        except:
+            return Response({'message':'Not Found Element'},status=status.HTTP_400_BAD_REQUEST)
+        
+class DeleteGameAll(APIView):
+    permission_classes = (AllowAny, )
+
+    def delete(self, request):
+        try:
+            game_obj = VideoGames.objects.all()
+            game_obj.delete()
+            return Response({'message':'Deleted'},status=status.HTTP_200_OK)
+        except:
+            return Response({'message':'Not Found Element'},status=status.HTTP_400_BAD_REQUEST)
+        
