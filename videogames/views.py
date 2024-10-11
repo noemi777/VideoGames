@@ -39,7 +39,7 @@ class ReadGamesId(APIView):
             serializer = VideoGamesSerializer(game_obj)
             return Response(serializer.data)
         except:
-            return Response({'message':'No encontrado'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message':'Not found'},status=status.HTTP_400_BAD_REQUEST)
     
 class UpdateGame(APIView):
     permission_classes = (AllowAny, )
@@ -50,5 +50,5 @@ class UpdateGame(APIView):
             serializer = VideoGamesSerializer(game_obj)
             return Response(serializer.data)
         except:
-            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message':'Not Found Element'},status=status.HTTP_400_BAD_REQUEST)
 
