@@ -39,7 +39,7 @@ class ReadGamesId(APIView):
             serializer = VideoGamesSerializer(game_obj)
             return Response(serializer.data)
         except:
-            return Response({'message':'No encontrado'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message':'Not found'},status=status.HTTP_400_BAD_REQUEST)
     
 class UpdateGame(APIView):
     permission_classes = (AllowAny, )
@@ -50,34 +50,5 @@ class UpdateGame(APIView):
             serializer = VideoGamesSerializer(game_obj)
             return Response(serializer.data)
         except:
-            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
-
-    def put(self, request, id):
-        game_obj = VideoGames.objects.get(pk=id)
-        serializer = VideoGamesSerializer(game_obj, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response (serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class DeleteGame(APIView):
-    permission_classes = (AllowAny, )
-
-    def get(self, request, id):
-        try:
-            game_obj = VideoGames.objects.get(pk=id)
-            serializer = VideoGamesSerializer(game_obj)
-            return Response(serializer.data)
-        except:
-            return Response({'message':'Not Found'},status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, reques, id):
-        game_obj = VideoGames.objects.get(pk=id)
-        game_obj.status = False
-        game_obj.delete()
-        return Response({'message': 'Deleted'},status=status.HTTP_204_NO_CONTENT)
-
-
-
-
+            return Response({'message':'Not Found Element'},status=status.HTTP_400_BAD_REQUEST)
 
