@@ -25,6 +25,6 @@ urlpatterns = [
     path('read/<int:id>', ReadGamesId.as_view(), name='Read by id'),
     path('update/<int:id>', UpdateGame.as_view(), name= 'Update game'),
     path('delete/<int:id>', DeleteGame.as_view(), name='Delete videogame'),
-    path('delete/all/', DeleteGameAll.as_view(), name='Delete all videogames')
+    path('delete', DeleteGameAll.as_view(), name='Delete all videogames')
 
 ]
