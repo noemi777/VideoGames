@@ -29,8 +29,8 @@ jobs:
       - name: Install uv
         run: pip install uv
 
-      # - name: Install dependencies
-      #   run: pip install -r requirements.txt
+      - name: Install pre-commit
+        run: pip install pre-commit
 
       - name: Run pre-commit checks
         run: pre-commit run --all-files
