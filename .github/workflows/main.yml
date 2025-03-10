@@ -26,6 +26,9 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
+      - name: Install uv
+        run: pip install uv
+
       - name: Install dependencies using uv.lock
         run: uv lock install
 
