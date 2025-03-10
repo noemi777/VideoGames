@@ -25,7 +25,6 @@ class ReadListGames(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request):
-
         game_obj = VideoGames.objects.all()
         serializer = VideoGamesSerializer(game_obj, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -35,7 +34,6 @@ class ReadGamesId(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, id):
-
         game_obj = VideoGames.objects.get(pk=id)
         serializer = VideoGamesSerializer(game_obj)
         return Response(serializer.data)
@@ -45,7 +43,6 @@ class UpdateGame(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, id):
-
         game_obj = VideoGames.objects.get(pk=id)
         serializer = VideoGamesSerializer(game_obj)
         return Response(serializer.data)
