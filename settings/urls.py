@@ -17,7 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from videogames.views import CreateGame, ReadGamesId, ReadListGames, UpdateGame
+
+from videogames.views import CreateGame
+from videogames.views import ReadGamesId
+from videogames.views import ReadListGames
+from videogames.views import UpdateGame
 
 urlpatterns = [
     path("admin/", admin.site.urls),

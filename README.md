@@ -15,7 +15,7 @@ pip install -r requirements.txt <br>
 <br>
 
 - Crear un archivo .env, con datos similares:<br>
-SECRET_KEY = 'vidoejaus29ekk1isao43m20sdja1k23japs9d'<br> 
+SECRET_KEY = 'vidoejaus29ekk1isao43m20sdja1k23japs9d'<br>
 DEBUG = True  <br>
 ALLOWED_HOSTS = *  <br>
 DATABASE_URL= 'postgres://gamestest:43W0N1KUZp0pZuIP1LlzBH6A6eOlTDE5@dpg-cnqfg6la73kc739uogv0-a.oregon-postgres.render.com/demo_games' <br>
@@ -31,4 +31,4 @@ Los datos anteriores pueden ser sustituidos de acuerdo a las necesidades. La bas
 "company":"Nintendoo",<br>
 "release_date":"2021-03-01"<br>
 }
-  
+
