@@ -5,8 +5,6 @@ from rest_framework.response import Response
 from videogames.models import VideoGames
 from videogames.serializers import VideoGamesSerializer
 
-# Create your views here.
-
 
 class CreateGame(APIView):
     permission_classes = (AllowAny,)
