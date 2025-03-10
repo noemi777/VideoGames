@@ -33,7 +33,7 @@ jobs:
         run: pip install pre-commit
 
       - name: Run pre-commit checks
-        run: pre-commit run --all-files
+        run: pre-commit run -a
 
       - name: Type checking with mypy
         run: mypy .
