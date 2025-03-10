@@ -5,35 +5,63 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch: # Allow manual triggering
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true # Cancel redundant runs
+
+env:
+  PYTHON_VERSION_FILE: .python-version
+  CACHE_PREFIX: v1 # Bump to invalidate caches
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15 # Prevent hanging jobs
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated to v4
 
       - name: Get Python version from .python-version
         id: python_version
-        run: echo "python_version=$(cat .python-version)" >> $GITHUB_OUTPUT
+        run: echo "python_version=$(cat ${{ env.PYTHON_VERSION_FILE }})" >> $GITHUB_OUTPUT
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Updated to v5
         with:
           python-version: ${{ steps.python_version.outputs.python_version }}
-
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
+          cache: "pip" # Enable pip caching
 
       - name: Install uv
-        run: pip install uv pre-commit
+        run: pipx install uv
+
+      - name: Setup dependency cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/uv
+            .venv
+          key: ${{ env.CACHE_PREFIX }}-${{ runner.os }}-uv-${{ hashFiles('**/requirements*.txt', 'pyproject.toml') }}
+          restore-keys: |
+            ${{ env.CACHE_PREFIX }}-${{ runner.os }}-uv-
+
+      - name: Set up pre-commit cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ env.CACHE_PREFIX }}-${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Run pre-commit checks
-        run: pre-commit run -a
+        run: |
+          uv pip install pre-commit
+          pre-commit run -a
 
       - name: Type checking with mypy
         run: mypy .
 
       - name: Run tests with pytest
-        run: pytest
+        run: |
+          uv pip install pytest pytest-cov
+          pytest --cov=./ --cov-report=xml
