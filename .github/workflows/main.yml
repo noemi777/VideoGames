@@ -27,10 +27,7 @@ jobs:
         run: python -m pip install --upgrade pip
 
       - name: Install uv
-        run: pip install uv
-
-      - name: Install pre-commit
-        run: pip install pre-commit
+        run: pip install uv pre-commit
 
       - name: Run pre-commit checks
         run: pre-commit run -a
