@@ -25,39 +25,27 @@ class ReadListGames(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request):
-        try:
-            game_obj = VideoGames.objects.all()
-            serializer = VideoGamesSerializer(game_obj, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except:
-            return Response(
-                {"message": "Not Found"}, status=status.HTTP_400_BAD_REQUEST
-            )
+
+        game_obj = VideoGames.objects.all()
+        serializer = VideoGamesSerializer(game_obj, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ReadGamesId(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, id):
-        try:
-            game_obj = VideoGames.objects.get(pk=id)
-            serializer = VideoGamesSerializer(game_obj)
-            return Response(serializer.data)
-        except:
-            return Response(
-                {"message": "Not found"}, status=status.HTTP_400_BAD_REQUEST
-            )
+
+        game_obj = VideoGames.objects.get(pk=id)
+        serializer = VideoGamesSerializer(game_obj)
+        return Response(serializer.data)
 
 
 class UpdateGame(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, id):
-        try:
-            game_obj = VideoGames.objects.get(pk=id)
-            serializer = VideoGamesSerializer(game_obj)
-            return Response(serializer.data)
-        except:
-            return Response(
-                {"message": "Not Found Element"}, status=status.HTTP_400_BAD_REQUEST
-            )
+
+        game_obj = VideoGames.objects.get(pk=id)
+        serializer = VideoGamesSerializer(game_obj)
+        return Response(serializer.data)
