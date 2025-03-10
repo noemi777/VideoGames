@@ -29,8 +29,8 @@ jobs:
       - name: Install uv
         run: pip install uv
 
-      - name: Install dependencies using uv.lock
-        run: uv lock install
+      # - name: Install dependencies
+      #   run: pip install -r requirements.txt
 
       - name: Run pre-commit checks
         run: pre-commit run --all-files
