@@ -35,7 +35,7 @@ jobs:
           cache: "pip" # Enable pip caching
 
       - name: Install uv
-        run: pipx install uv
+        run: pip install uv pre-commit
 
       - name: Setup dependency cache
         uses: actions/cache@v4
@@ -54,14 +54,10 @@ jobs:
           key: ${{ env.CACHE_PREFIX }}-${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Run pre-commit checks
-        run: |
-          uv pip install pre-commit
-          pre-commit run -a
+        run: pre-commit run -a
 
       - name: Type checking with mypy
         run: mypy .
 
       - name: Run tests with pytest
-        run: |
-          uv pip install pytest pytest-cov
-          pytest --cov=./ --cov-report=xml
+        run: pytest
