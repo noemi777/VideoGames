@@ -5,53 +5,48 @@ on:
     branches: [main]
   push:
     branches: [main]
-  workflow_dispatch: # Allow manual triggering
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true # Cancel redundant runs
-
-env:
-  PYTHON_VERSION_FILE: .python-version
-  CACHE_PREFIX: v1 # Bump to invalidate caches
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15 # Prevent hanging jobs
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # Updated to v4
+        uses: actions/checkout@v3
 
       - name: Get Python version from .python-version
         id: python_version
-        run: echo "python_version=$(cat ${{ env.PYTHON_VERSION_FILE }})" >> $GITHUB_OUTPUT
+        run: echo "python_version=$(cat .python-version)" >> $GITHUB_OUTPUT
 
       - name: Set up Python
-        uses: actions/setup-python@v5 # Updated to v5
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ steps.python_version.outputs.python_version }}
-          cache: "pip" # Enable pip caching
 
-      - name: Install uv
-        run: pip install uv pre-commit
-
-      - name: Setup dependency cache
-        uses: actions/cache@v4
+      - name: Cache pip packages
+        uses: actions/cache@v3
         with:
-          path: |
-            ~/.cache/uv
-            .venv
-          key: ${{ env.CACHE_PREFIX }}-${{ runner.os }}-uv-${{ hashFiles('**/requirements*.txt', 'pyproject.toml') }}
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('.python-version') }}
           restore-keys: |
-            ${{ env.CACHE_PREFIX }}-${{ runner.os }}-uv-
+            ${{ runner.os }}-pip-
 
-      - name: Set up pre-commit cache
-        uses: actions/cache@v4
+      - name: Cache pre-commit
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
-          key: ${{ env.CACHE_PREFIX }}-${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pre-commit-
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install pre-commit
+        run: pip install pre-commit
 
       - name: Run pre-commit checks
         run: pre-commit run -a
@@ -60,4 +55,4 @@ jobs:
         run: mypy .
 
       - name: Run tests with pytest
-        run: pytest -m
+        run: python -m pytest
